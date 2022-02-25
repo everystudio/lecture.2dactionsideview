@@ -8,6 +8,11 @@ public class PlayerController : MonoBehaviour
     private float m_fAxisHorizontal;
     public float HorizontalSpeed = 3f;
 
+    public float m_fJumpPower = 9.0f;
+    public LayerMask m_layerGround;
+    private bool m_bJumpRequest;
+    private bool m_bIsGround;
+
     void Start()
     {
         m_rigidbody = GetComponent<Rigidbody2D>();
@@ -31,12 +36,43 @@ public class PlayerController : MonoBehaviour
         {
             // 左右の入力なし
         }
+
+        // ジャンプの入力処理
+        if(Input.GetButtonDown("Jump"))
+        {
+            InputJump();
+        }
+
+    }
+
+    private void OnDrawGizmos()
+    {
+        Debug.DrawLine(transform.position,
+            transform.position + (transform.up * -0.76f));
     }
 
     private void FixedUpdate()
     {
+        // 接地判定
+        m_bIsGround = Physics2D.Linecast(
+            transform.position,
+            transform.position + (transform.up * -0.76f),
+            m_layerGround);
+
         m_rigidbody.velocity = new Vector2(
             m_fAxisHorizontal * HorizontalSpeed,
             m_rigidbody.velocity.y);
+
+        if(m_bIsGround && m_bJumpRequest)
+        {
+            Vector2 jumpPower = new Vector2(0f, m_fJumpPower);
+            m_rigidbody.AddForce(jumpPower, ForceMode2D.Impulse);
+            m_bJumpRequest = false;
+        }
+    }
+
+    private void InputJump()
+    {
+        m_bJumpRequest = true;
     }
 }

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7373085990105124904}
   - component: {fileID: 7373085990105124911}
   - component: {fileID: 7373085990105124905}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PrefBlock32x64
   m_TagString: Untagged
   m_Icon: {fileID: 0}
