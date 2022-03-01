@@ -81,4 +81,17 @@ public class PlayerController : MonoBehaviour
     {
         m_bJumpRequest = true;
     }
+
+    public void OnGoal()
+    {
+        GetComponent<Animator>().Play("Goal");
+    }
+
+    public void OnDead()
+    {
+        GetComponent<Animator>().Play("Dead");
+        GetComponent<Collider2D>().enabled = false; // 2Dの当たり判定
+        m_rigidbody.AddForce(new Vector2(0f, 5f), ForceMode2D.Impulse);
+    }
+
 }
