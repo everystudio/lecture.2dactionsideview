@@ -18,16 +18,22 @@ public class PlayerController : MonoBehaviour
         m_rigidbody = GetComponent<Rigidbody2D>();
     }
 
+    public void Stop()
+    {
+        Debug.Log("Stop");
+        m_rigidbody.velocity = new Vector2(0f, m_rigidbody.velocity.y);
+    }
+
     void Update()
     {
         m_fAxisHorizontal = Input.GetAxisRaw("Horizontal");
-
-        if( 0f < m_fAxisHorizontal)
+        Debug.Log("update");
+        if (0f < m_fAxisHorizontal)
         {
             // 右側の入力
             transform.localScale = Vector2.one;
         }
-        else if(m_fAxisHorizontal < 0f)
+        else if (m_fAxisHorizontal < 0f)
         {
             // 左側の入力
             transform.localScale = new Vector2(-1f, 1f);
@@ -38,7 +44,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // ジャンプの入力処理
-        if(Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Jump"))
         {
             InputJump();
         }
@@ -59,7 +65,7 @@ public class PlayerController : MonoBehaviour
     {
         // 接地判定
         m_bIsGround = Physics2D.CircleCast(
-            transform.position ,
+            transform.position,
             0.5f,
             transform.up * -1f,
             0.27f,
@@ -69,7 +75,7 @@ public class PlayerController : MonoBehaviour
             m_fAxisHorizontal * HorizontalSpeed,
             m_rigidbody.velocity.y);
 
-        if(m_bIsGround && m_bJumpRequest)
+        if (m_bIsGround && m_bJumpRequest)
         {
             Vector2 jumpPower = new Vector2(0f, m_fJumpPower);
             m_rigidbody.AddForce(jumpPower, ForceMode2D.Impulse);
@@ -85,6 +91,7 @@ public class PlayerController : MonoBehaviour
     public void OnGoal()
     {
         GetComponent<Animator>().Play("Goal");
+        Stop();
     }
 
     public void OnDead()
@@ -92,6 +99,7 @@ public class PlayerController : MonoBehaviour
         GetComponent<Animator>().Play("Dead");
         GetComponent<Collider2D>().enabled = false; // 2Dの当たり判定
         m_rigidbody.AddForce(new Vector2(0f, 5f), ForceMode2D.Impulse);
+        Stop();
     }
 
 }
