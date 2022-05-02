@@ -1,19 +1,43 @@
-using System.Collections;
+Ôªøusing System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameMain : MonoBehaviour
 {
+    public GameObject m_goPanelStart;
+    public GameObject m_goPanelGoal;
+
+    private void Start()
+    {
+        PlayerController playerController = GameObject.FindObjectOfType<PlayerController>();
+        playerController.enabled = false;
+
+        m_goPanelStart.SetActive(true);
+        m_goPanelGoal.SetActive(false);
+
+    }
+
+    public void OnGameStart()
+    {
+        m_goPanelStart.SetActive(false);
+
+        PlayerController playerController = GameObject.FindObjectOfType<PlayerController>();
+        playerController.enabled = true;
+    }
+
     public void OnGoal()
     {
-        Debug.Log("ÉSÅ[ÉãÇµÇ‹ÇµÇΩ");
+        Debug.Log("„Ç¥„Éº„É´„Åó„Åæ„Åó„Åü");
         PlayerController playerController = GameObject.FindObjectOfType<PlayerController>();
         playerController.OnGoal();
+        playerController.enabled = false;
+
+        m_goPanelGoal.SetActive(true);
     }
     public void OnDeadPlayer()
     {
-        Debug.Log("ÉvÉåÉCÉÑÅ[Ç™Ç‚ÇÁÇÍÇ‹ÇµÇΩ");
+        Debug.Log("„Éó„É¨„Ç§„É§„Éº„Åå„ÇÑ„Çâ„Çå„Åæ„Åó„Åü");
         PlayerController playerController = GameObject.FindObjectOfType<PlayerController>();
         playerController.OnDead();
 
