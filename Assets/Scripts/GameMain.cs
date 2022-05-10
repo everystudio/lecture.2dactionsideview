@@ -8,6 +8,8 @@ public class GameMain : MonoBehaviour
     public GameObject m_goPanelStart;
     public GameObject m_goPanelGoal;
 
+    public GameTimer m_gameTimer;
+
     private void Start()
     {
         PlayerController playerController = GameObject.FindObjectOfType<PlayerController>();
@@ -16,11 +18,14 @@ public class GameMain : MonoBehaviour
         m_goPanelStart.SetActive(true);
         m_goPanelGoal.SetActive(false);
 
+        m_gameTimer.OnStop();
+
     }
 
     public void OnGameStart()
     {
         m_goPanelStart.SetActive(false);
+        m_gameTimer.OnStart();
 
         PlayerController playerController = GameObject.FindObjectOfType<PlayerController>();
         playerController.enabled = true;
@@ -33,6 +38,8 @@ public class GameMain : MonoBehaviour
         playerController.OnGoal();
         playerController.enabled = false;
 
+        m_gameTimer.OnStop();
+
         m_goPanelGoal.SetActive(true);
     }
     public void OnDeadPlayer()
@@ -40,6 +47,7 @@ public class GameMain : MonoBehaviour
         Debug.Log("プレイヤーがやられました");
         PlayerController playerController = GameObject.FindObjectOfType<PlayerController>();
         playerController.OnDead();
+        m_gameTimer.OnStop();
 
         StartCoroutine(Restart());
     }
