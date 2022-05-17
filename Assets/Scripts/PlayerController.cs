@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     public LayerMask m_layerGround;
     private bool m_bJumpRequest;
     private bool m_bIsGround;
+    public bool IsGround { get { return m_bIsGround; } }
 
     void Start()
     {
