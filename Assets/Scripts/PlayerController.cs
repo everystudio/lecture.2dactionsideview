@@ -13,10 +13,13 @@ public class PlayerController : MonoBehaviour
     private bool m_bJumpRequest;
     private bool m_bIsGround;
 
+
     void Start()
     {
         m_rigidbody = GetComponent<Rigidbody2D>();
     }
+
+    public bool IsGround { get { return m_bIsGround; } }
 
     public void Stop()
     {
