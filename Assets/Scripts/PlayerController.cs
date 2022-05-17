@@ -66,12 +66,21 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         // 接地判定
-        m_bIsGround = Physics2D.CircleCast(
+        bool bIsGround = Physics2D.CircleCast(
             transform.position,
             0.5f,
             transform.up * -1f,
             0.27f,
             m_layerGround);
+
+        if (m_bIsGround != bIsGround)
+        {
+            m_bIsGround = bIsGround;
+            if (m_bIsGround)
+            {
+                Landing();
+            }
+        }
 
         m_rigidbody.velocity = new Vector2(
             m_fAxisHorizontal * HorizontalSpeed,
@@ -83,6 +92,11 @@ public class PlayerController : MonoBehaviour
             m_rigidbody.AddForce(jumpPower, ForceMode2D.Impulse);
             m_bJumpRequest = false;
         }
+    }
+
+    private void Landing()
+    {
+        Debug.Log("着地した瞬間に呼ばれる");
     }
 
     private void InputJump()
