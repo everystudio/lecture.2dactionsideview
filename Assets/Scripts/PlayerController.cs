@@ -14,6 +14,10 @@ public class PlayerController : MonoBehaviour
     private bool m_bIsGround;
     public bool IsGround { get { return m_bIsGround; } }
 
+    // テスト用
+    public UnityEngine.UI.Image m_imgGround;
+    public UnityEngine.UI.Image m_imgLanding;
+
     void Start()
     {
         m_rigidbody = GetComponent<Rigidbody2D>();
@@ -73,6 +77,9 @@ public class PlayerController : MonoBehaviour
             0.27f,
             m_layerGround);
 
+        m_imgGround.color = bIsGround ? Color.green : Color.blue;
+        m_imgLanding.color = Color.white;
+
         if (m_bIsGround != bIsGround)
         {
             m_bIsGround = bIsGround;
@@ -97,6 +104,7 @@ public class PlayerController : MonoBehaviour
     private void Landing()
     {
         Debug.Log("着地した瞬間に呼ばれる");
+        m_imgLanding.color = Color.red;
     }
 
     private void InputJump()
