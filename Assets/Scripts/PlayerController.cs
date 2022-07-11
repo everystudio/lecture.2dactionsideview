@@ -14,8 +14,11 @@ public class PlayerController : MonoBehaviour
     private bool m_bIsGround;
     public bool IsGround { get { return m_bIsGround; } }
 
+    public float m_fControlLostTime;
+
     void Start()
     {
+        m_fControlLostTime = 0f;
         m_rigidbody = GetComponent<Rigidbody2D>();
     }
 
@@ -28,7 +31,14 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        bool bControl = m_fControlLostTime <= 0;
+
         m_fAxisHorizontal = Input.GetAxisRaw("Horizontal");
+        if (bControl == false)
+        {
+            m_fAxisHorizontal = 0f;
+        }
+
 
         if (0f < m_fAxisHorizontal)
         {
@@ -46,10 +56,21 @@ public class PlayerController : MonoBehaviour
         }
 
         // ジャンプの入力処理
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Jump") && bControl)
         {
             InputJump();
         }
+
+        if (0f < m_fControlLostTime)
+        {
+            m_fControlLostTime -= Time.deltaTime;
+            GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0.5f);
+        }
+        else
+        {
+            GetComponent<SpriteRenderer>().color = Color.white;
+        }
+
 
     }
 
@@ -85,10 +106,13 @@ public class PlayerController : MonoBehaviour
                 // 地面から足が離れた瞬間
             }
         }
-
-        m_rigidbody.velocity = new Vector2(
-            m_fAxisHorizontal * HorizontalSpeed,
-            m_rigidbody.velocity.y);
+        bool bControl = m_fControlLostTime <= 0;
+        if (bControl)
+        {
+            m_rigidbody.velocity = new Vector2(
+                m_fAxisHorizontal * HorizontalSpeed,
+                m_rigidbody.velocity.y);
+        }
 
         if (m_bIsGround && m_bJumpRequest)
         {
@@ -121,7 +145,12 @@ public class PlayerController : MonoBehaviour
         GetComponent<Collider2D>().enabled = false; // 2Dの当たり判定
         m_rigidbody.AddForce(new Vector2(0f, 5f), ForceMode2D.Impulse);
         Stop();
+    }
 
+    public void OnDamage()
+    {
+        m_rigidbody.velocity = new Vector2(-3f, 5f);
+        m_fControlLostTime = 0.5f;
     }
 
 }

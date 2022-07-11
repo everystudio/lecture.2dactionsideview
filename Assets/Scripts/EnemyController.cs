@@ -43,6 +43,10 @@ public class EnemyController : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        else if (_collision.gameObject.CompareTag("Player"))
+        {
+            _collision.gameObject.GetComponent<Health>().Damage(1);
+        }
     }
 
 }
