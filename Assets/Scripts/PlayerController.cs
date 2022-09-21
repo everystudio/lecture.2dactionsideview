@@ -48,15 +48,21 @@ public class PlayerController : MonoBehaviour
     private void OnDrawGizmos()
     {
         Debug.DrawLine(transform.position,
-            transform.position + (transform.up * -0.76f));
+            transform.position + (transform.up * -0.27f));
+
+        Gizmos.DrawWireSphere(
+            transform.position + (transform.up * -0.27f),
+            0.5f);
     }
 
     private void FixedUpdate()
     {
         // 接地判定
-        m_bIsGround = Physics2D.Linecast(
-            transform.position,
-            transform.position + (transform.up * -0.76f),
+        m_bIsGround = Physics2D.CircleCast(
+            transform.position ,
+            0.5f,
+            transform.up * -1f,
+            0.27f,
             m_layerGround);
 
         m_rigidbody.velocity = new Vector2(
