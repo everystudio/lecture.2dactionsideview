@@ -9,14 +9,19 @@ public class MovePlatform : MonoBehaviour
     public float speed = 1f;
 
     private List<Transform> ridingPlayers = new List<Transform>();
-
+    private Tweener myTweener;
     void Start()
     {
         float dulation = move / speed;
-        transform.DOMoveX(move, dulation)
+        myTweener = transform.DOMoveX(move, dulation)
             .SetRelative(true)
             .SetLoops(-1, LoopType.Yoyo)
             .SetEase(Ease.InOutQuad);
+    }
+
+    private void OnDestroy()
+    {
+        DOTween.Kill(this.transform);
     }
 
     private void OnCollisionEnter2D(Collision2D _collision)

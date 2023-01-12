@@ -222,8 +222,8 @@ MonoBehaviour:
   m_WarningSprite: {fileID: 21300000, guid: 709eaadbf9167df47b103baaa15a7b14, type: 3}
   m_CommandSprite: {fileID: 21300000, guid: 7cc55c7168129f14bab6d0f564be2a81, type: 3}
   m_ParameterColor: {r: 0.8666667, g: 0.8666667, b: 0.8666667, a: 0.5882353}
-  m_BackgroundColor1: {r: 0.21960784, g: 0.21960784, b: 0.21960784, a: 1}
-  m_BackgroundColor2: {r: 0.24705882, g: 0.24705882, b: 0.24705882, a: 1}
+  m_BackgroundColor1: {r: 0.21960784, g: 0.21960784, b: 0.21960784, a: 0.69411767}
+  m_BackgroundColor2: {r: 0.24705882, g: 0.24705882, b: 0.24705882, a: 0.7529412}
   m_AutocompleteBackgroundColor: {r: 0.17254902, g: 0.5294118, b: 0.3647059, a: 1}
 --- !u!114 &2973188242668552972
 MonoBehaviour:
@@ -327,8 +327,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 0cd93c0f1a5d7264fbfe9bbe66cd8940, type: 2}
+  m_sharedMaterial: {fileID: 7326490000031978911, guid: 0cd93c0f1a5d7264fbfe9bbe66cd8940, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
