@@ -45,7 +45,7 @@ public class EnemyController : MonoBehaviour
         }
         else if (_collision.gameObject.CompareTag("Player"))
         {
-            _collision.gameObject.GetComponent<Health>().Damage(1);
+            _collision.gameObject.GetComponent<Health>().Damage(1, this.gameObject);
         }
     }
 
