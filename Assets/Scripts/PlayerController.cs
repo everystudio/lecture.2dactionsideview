@@ -148,9 +148,18 @@ public class PlayerController : MonoBehaviour
         HitStopController.Instance.Stop(0.15f, true);
     }
 
-    public void OnDamage()
+    public void OnDamage(GameObject targetObject)
     {
-        m_rigidbody.velocity = new Vector2(-3f, 5f);
+        float velocityX = 3f;
+        if (transform.position.x < targetObject.transform.position.x)
+        {
+            velocityX = -3f;
+        }
+        else
+        {
+            velocityX = 3f;
+        }
+        m_rigidbody.velocity = new Vector2(velocityX, 5f);
         m_fControlLostTime = 0.5f;
         HitStopController.Instance.Stop(0.15f, false);
     }

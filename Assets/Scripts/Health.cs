@@ -13,7 +13,7 @@ public class Health : MonoBehaviour
         OnHealthChange.Invoke(hp_current);
     }
 
-    public void Damage(int _iParam)
+    public void Damage(int _iParam, GameObject targetObject)
     {
         hp_current -= Mathf.Abs(_iParam);
         OnHealthChange.Invoke(hp_current);
@@ -26,7 +26,7 @@ public class Health : MonoBehaviour
             }
             else
             {
-                player.OnDamage();
+                player.OnDamage(targetObject);
             }
         }
     }

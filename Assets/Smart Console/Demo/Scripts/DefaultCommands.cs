@@ -66,7 +66,7 @@ namespace SmartConsole.Demo
             Health health = GameObject.FindObjectOfType<Health>();
             if (health != null)
             {
-                health.Damage(damage);
+                health.Damage(damage, null);
             }
             else
             {
